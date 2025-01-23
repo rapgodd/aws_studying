@@ -14,4 +14,9 @@ public class TestController {
     public ResponseEntity<?> test() {
         return ResponseEntity.ok("Hello from /api/test");
     }
+
+    @GetMapping("/health")
+    public ResponseEntity<?> health() {
+        return ResponseEntity.ok("Success health check!");
+    }
 }
