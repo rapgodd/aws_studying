@@ -1,14 +1,16 @@
 package com.giyeon.awsinfastudying.controller;
 
+import com.giyeon.awsinfastudying.service.TestService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
+@RequiredArgsConstructor
 public class TestController {
+
+    private TestService testService;
 
     @GetMapping("/test")
     public ResponseEntity<?> test() {
@@ -18,5 +20,11 @@ public class TestController {
     @GetMapping("/health")
     public ResponseEntity<?> health() {
         return ResponseEntity.ok("Success health check!");
+    }
+
+    @PostMapping("/save")
+    public ResponseEntity<?> save() {
+        testService.save();
+        return ResponseEntity.ok("Save success!");
     }
 }
