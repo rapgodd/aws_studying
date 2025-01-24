@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class TestController {
 
-    private TestService testService;
+    private final TestService testService;
 
     @GetMapping("/test")
     public ResponseEntity<?> test() {
