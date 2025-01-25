@@ -4,6 +4,7 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectResult;
 import com.giyeon.awsinfastudying.domain.Test;
+import com.giyeon.awsinfastudying.dto.ImageDto;
 import com.giyeon.awsinfastudying.repository.TestRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.util.http.fileupload.FileUploadException;
@@ -48,5 +49,10 @@ public class TestService {
         }catch (Exception e){
             throw new FileUploadException();
         }
+    }
+
+    public ImageDto getUserImage() {
+        Test image = testRepository.getImage();
+        return new ImageDto(image.getTestString());
     }
 }

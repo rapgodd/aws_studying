@@ -1,5 +1,6 @@
 package com.giyeon.awsinfastudying.controller;
 
+import com.giyeon.awsinfastudying.dto.ImageDto;
 import com.giyeon.awsinfastudying.service.TestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -37,5 +38,10 @@ public class TestController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
         return ResponseEntity.ok("Upload success!");
+    }
+
+    @GetMapping("/image")
+    public ImageDto getImage(){
+        return testService.getUserImage();
     }
 }

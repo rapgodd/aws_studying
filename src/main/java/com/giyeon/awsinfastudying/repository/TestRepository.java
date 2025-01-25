@@ -16,4 +16,15 @@ public class TestRepository {
         em.persist(test);
     }
 
+    public Test getImage() {
+        return em.createQuery("select t from Test t where t.id = :id", Test.class)
+                .setParameter("id", 1L)
+                .getSingleResult();
+    }
 }
+
+
+//    return em.createQuery(
+//            "SELECT t FROM Test t WHERE t.id = :id", Test.class)
+//        .setParameter("id", 1L)
+//        .getSingleResult();
