@@ -3,6 +3,7 @@ package com.giyeon.awsinfastudying.controller;
 import com.giyeon.awsinfastudying.dto.ImageDto;
 import com.giyeon.awsinfastudying.service.TestService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -12,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 public class TestController {
 
+    private final RedisTemplate<String, Object> redisTemplate;
     private final TestService testService;
 
     @GetMapping("/test")
@@ -34,14 +36,22 @@ public class TestController {
     public ResponseEntity<?> upload(@RequestParam("file") MultipartFile file) {
         try {
             testService.upload(file);
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
-        return ResponseEntity.ok("Upload success!");
+        return ResponseEntity.ok("Upload success!!");
     }
 
-    @GetMapping("/image")
-    public ImageDto getImage(){
+    @GetMapping("/image/test")
+    public ImageDto getImage() {
         return testService.getUserImage();
+    }
+
+    @GetMapping("/redis")
+    public String home() {
+
+        redisTemplate.opsForValue().set("abc", "hello");
+        return "hello redis world";
+
     }
 }

@@ -6,6 +6,8 @@ services:
     depends_on:
       my-db:
         condition: service_healthy
+      my-cash-redis:
+        condition: service_healthy
 
   my-db:
     image: mysql
@@ -18,5 +20,14 @@ services:
       - ./mysql_data:/var/lib/mysql
     healthcheck:
       test: [ "CMD", "mysqladmin", "ping"]
+      interval: 5s
+      retries: 10
+
+  my-cash-redis:
+    image: redis
+    ports:
+      - 6379:6379
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
       interval: 5s
       retries: 10
